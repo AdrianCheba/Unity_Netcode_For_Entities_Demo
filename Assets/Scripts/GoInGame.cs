@@ -4,12 +4,10 @@ using Unity.NetCode;
 using Unity.Burst;
 using UnityEngine;
 
-// RPC request from client to server for game to go "in game" and send snapshots / inputs
 public struct GoInGameRequest : IRpcCommand
 {
 }
 
-// When client has a connection with network id, go in game and tell server to also go in game
 [BurstCompile]
 [WorldSystemFilter(WorldSystemFilterFlags.ClientSimulation | WorldSystemFilterFlags.ThinClientSimulation)]
 public partial struct GoInGameClientSystem : ISystem
@@ -18,9 +16,7 @@ public partial struct GoInGameClientSystem : ISystem
     public void OnCreate(ref SystemState state)
     {
         state.RequireForUpdate<PlayerSpawner>();
-        var builder = new EntityQueryBuilder(Allocator.Temp)
-            .WithAll<NetworkId>()
-            .WithNone<NetworkStreamInGame>();
+        var builder = new EntityQueryBuilder(Allocator.Temp).WithAll<NetworkId>().WithNone<NetworkStreamInGame>();
         state.RequireForUpdate(state.GetEntityQuery(builder));
     }
 
@@ -39,7 +35,7 @@ public partial struct GoInGameClientSystem : ISystem
     }
 }
 
-// When server receives go in game request, go in game and delete request
+
 [BurstCompile]
 [WorldSystemFilter(WorldSystemFilterFlags.ServerSimulation)]
 public partial struct GoInGameServerSystem : ISystem
@@ -50,9 +46,7 @@ public partial struct GoInGameServerSystem : ISystem
     public void OnCreate(ref SystemState state)
     {
         state.RequireForUpdate<PlayerSpawner>();
-        var builder = new EntityQueryBuilder(Allocator.Temp)
-            .WithAll<GoInGameRequest>()
-            .WithAll<ReceiveRpcCommandRequest>();
+        var builder = new EntityQueryBuilder(Allocator.Temp).WithAll<GoInGameRequest>().WithAll<ReceiveRpcCommandRequest>();
         state.RequireForUpdate(state.GetEntityQuery(builder));
         networkIdFromEntity = state.GetComponentLookup<NetworkId>(true);
     }
