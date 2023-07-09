@@ -13,6 +13,7 @@ public class PlayerSpawnerAuthoring : MonoBehaviour
 
     class Baker : Baker<PlayerSpawnerAuthoring>
     {
+        [System.Obsolete]
         public override void Bake(PlayerSpawnerAuthoring authoring)
         {
             PlayerSpawner component = default(PlayerSpawner);

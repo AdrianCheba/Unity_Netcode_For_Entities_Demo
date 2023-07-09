@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1602845079545390645}
   - component: {fileID: 3126069837793518895}
   - component: {fileID: -582357358988267292}
-  - component: {fileID: 3584707969308324597}
+  - component: {fileID: 1130383100564362527}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -36,7 +36,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &947235848098310742
 MeshFilter:
@@ -135,16 +135,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c79d771cedb4794bf100ce60df5f764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultGhostMode: 0
-  SupportedGhostModes: 2
+  DefaultGhostMode: 2
+  SupportedGhostModes: 3
   OptimizationMode: 0
   Importance: 1
   prefabId: b12d56964926b4d41b0a055663b46a71
   HasOwner: 1
   SupportAutoCommandTarget: 1
-  TrackInterpolationDelay: 0
+  TrackInterpolationDelay: 1
   GhostGroup: 0
-  UsePreSerialization: 0
+  UsePreSerialization: 1
 --- !u!114 &-582357358988267292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 876665dcda0e46c4fa3de475829911fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3584707969308324597
+--- !u!114 &1130383100564362527
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -166,6 +166,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4011429539507028674}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 619a73e3191ad804e90b1cb3e767a635, type: 3}
+  m_Script: {fileID: 11500000, guid: b015390764abaa445af8c333cea47821, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

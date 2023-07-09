@@ -2,28 +2,16 @@ using Unity.Entities;
 using Unity.NetCode;
 using UnityEngine;
 
-[GhostComponent(PrefabType = GhostPrefabType.All)]
-public struct PlayerMovement : IInputComponentData
+[UpdateInGroup((typeof(GhostInputSystemGroup)))]
+public partial struct InputSystem : ISystem
 {
-    public int Horizontal;
-    public int Vertical;
-}
-
-[DisallowMultipleComponent]
-public class PlayerMovementAuthoring : MonoBehaviour
-{
-    class Baking : Baker<PlayerMovementAuthoring>
+    public void OnCreate(ref SystemState state)
     {
-        public override void Bake(PlayerMovementAuthoring authoring)
-        {
-            AddComponent<PlayerMovement>();
-        }
+        state.RequireForUpdate<PlayerSpawner>();
+        state.RequireForUpdate<InputComponent>();
+        state.RequireForUpdate<NetworkId>();
     }
-}
 
-[UpdateInGroup(typeof(GhostInputSystemGroup))]
-public partial struct SamplePlayerMovement : ISystem
-{
     public void OnUpdate(ref SystemState state)
     {
         bool left = Input.GetKey("left");
@@ -31,7 +19,7 @@ public partial struct SamplePlayerMovement : ISystem
         bool down = Input.GetKey("down");
         bool up = Input.GetKey("up");
 
-        foreach (var playerInput in SystemAPI.Query<RefRW<PlayerMovement>>().WithAll<GhostOwnerIsLocal>())
+        foreach (var playerInput in SystemAPI.Query<RefRW<InputComponent>>().WithAll<GhostOwnerIsLocal>())
         {
             playerInput.ValueRW = default;
             if (left)
