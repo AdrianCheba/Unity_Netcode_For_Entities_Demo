@@ -18,6 +18,7 @@ public partial struct InputSystem : ISystem
         bool right = Input.GetKey("right");
         bool down = Input.GetKey("down");
         bool up = Input.GetKey("up");
+        bool jump = Input.GetKey(KeyCode.Space);
 
         foreach (var playerInput in SystemAPI.Query<RefRW<InputComponent>>().WithAll<GhostOwnerIsLocal>())
         {
