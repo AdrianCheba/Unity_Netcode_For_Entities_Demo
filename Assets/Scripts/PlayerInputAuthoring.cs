@@ -12,6 +12,8 @@ public class InputBaker : Baker<PlayerInputAuthoring>
    
     public override void Bake(PlayerInputAuthoring authoring)
     {
-        AddComponent<InputComponent>();
+        Entity entity = GetEntity(authoring, TransformUsageFlags.Dynamic);
+
+        AddComponent<InputComponent>(entity);
     }
 }
