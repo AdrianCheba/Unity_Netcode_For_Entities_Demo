@@ -10,6 +10,7 @@ public class PlayerAuthoring : MonoBehaviour
 {
     class Baker : Baker<PlayerAuthoring>
     {
+        [System.Obsolete]
         public override void Bake(PlayerAuthoring authoring)
         {
             Player component = default(Player);

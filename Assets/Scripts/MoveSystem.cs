@@ -4,6 +4,8 @@ using Unity.NetCode;
 using Unity.Transforms;
 using Unity.Burst;
 using Unity.Collections;
+using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 [UpdateInGroup(typeof(PredictedSimulationSystemGroup))]
 [BurstCompile]
@@ -25,7 +27,10 @@ public partial struct CubeMovementSystem : ISystem
         {
             var moveInput = new float2(input.ValueRO.Horizontal, input.ValueRO.Vertical);
             moveInput = math.normalizesafe(moveInput) * speed;
+           
             trans.ValueRW.Position += new float3(moveInput.x, 0, moveInput.y);
+
+
         }
     }
 }

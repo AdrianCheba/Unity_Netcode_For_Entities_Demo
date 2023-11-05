@@ -1,5 +1,7 @@
 using Unity.Entities;
+using Unity.Mathematics;
 using Unity.NetCode;
+using Unity.Transforms;
 using UnityEngine;
 
 [UpdateInGroup((typeof(GhostInputSystemGroup)))]
@@ -14,12 +16,13 @@ public partial struct InputSystem : ISystem
 
     public void OnUpdate(ref SystemState state)
     {
-        bool left = Input.GetKey("left");
-        bool right = Input.GetKey("right");
-        bool down = Input.GetKey("down");
-        bool up = Input.GetKey("up");
+        bool left = Input.GetKey(KeyCode.LeftArrow);
+        bool right = Input.GetKey(KeyCode.RightArrow);
+        bool down = Input.GetKey(KeyCode.DownArrow);
+        bool up = Input.GetKey(KeyCode.UpArrow);
+        bool space = Input.GetKey(KeyCode.Space);
 
-        foreach (var playerInput in SystemAPI.Query<RefRW<InputComponent>>().WithAll<GhostOwnerIsLocal>())
+        foreach (var playerInput in SystemAPI.Query<RefRW<InputComponent>>().WithAll<Simulate>())
         {
             playerInput.ValueRW = default;
             if (left)
@@ -30,6 +33,11 @@ public partial struct InputSystem : ISystem
                 playerInput.ValueRW.Vertical -= 1;
             if (up)
                 playerInput.ValueRW.Vertical += 1;
+            if (space)
+            {
+                playerInput.ValueRW.Jump += 1;
+            }
+
         }
     }
 }
